@@ -10,6 +10,7 @@ const count = ref(0)
   <h1>{{ msg }}</h1>
 
   <div class="card">
+    <div class="test-title">DDP</div>
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>
       Edit
@@ -34,7 +35,12 @@ const count = ref(0)
   <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
 
-<style scoped>
+<style lang="scss">
+.card {
+  .test-title {
+    color: $primary-color;
+  }
+}
 .read-the-docs {
   color: #888;
 }
