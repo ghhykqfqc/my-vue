@@ -1,10 +1,20 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import eslintPlugin from 'vite-plugin-eslint';
 import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    eslintPlugin({
+      cache: false, // 禁用缓存
+      emitWarning: true, // 在控制台中显示警告
+      emitError: true, // 在控制台中显示错误
+      include: ['src/**/*.ts', 'src/**/*.tsx', 'src/**/*.js', 'src/**/*.vue'], // 指定要检查的文件
+      exclude: ['node_modules/**'], // 排除的文件
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
@@ -36,5 +46,5 @@ export default defineConfig({
         additionalData: `@use '@/styles/variables' as *;`,
       },
     },
-  },
+  }
 })
