@@ -5,12 +5,18 @@ import { createRouter, RouteRecordRaw, createWebHashHistory } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('@/views/home/HomeView.vue')
+    component: () => import('@/views/login/LoginView.vue'),
+    meta: {
+      title: "登录"
+    }
   },
   {
-    path: '/login',
-    component: () => import('@/views/login/LoginView.vue')
-  }
+    path: '/home',
+    component: () => import('@/views/home/HomeView.vue'),
+    meta: {
+      title: "首页"
+    }
+  },
 ]
  
 const router = createRouter({
