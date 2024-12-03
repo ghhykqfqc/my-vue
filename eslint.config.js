@@ -6,7 +6,7 @@ import pluginVue from "eslint-plugin-vue";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  {files: ["**/*.{js,jsx,ts,tsx,vue}"]},
+  {files: ["**/*.{js,ts,tsx,vue}"]},
   {languageOptions: { globals: globals.browser }},
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
@@ -21,6 +21,9 @@ export default [
       "**/*.config.ts",
       "vite-env.d.ts",
       "*.md"
-    ]
+    ],
+    rules: {
+      // 'vue/multi-word-component-names': 'off'
+    }
   }
 ];
