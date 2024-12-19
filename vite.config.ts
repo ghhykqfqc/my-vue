@@ -3,7 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import eslintPlugin from 'vite-plugin-eslint';
 import path from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
-import components from 'unplugin-vue-components/vite';
+import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vite.dev/config/
@@ -13,7 +13,7 @@ export default defineConfig({
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
-    components({
+    Components({
       resolvers: [ElementPlusResolver()],
     }),
     eslintPlugin({
