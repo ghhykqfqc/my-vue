@@ -129,21 +129,25 @@ const toggleCollapse = () => {
     align-items: center;
     font-size: 16px;
     padding: 0;
-    background-color: #3c8dbc;
     .header-left {
       display: flex;
+      height: inherit;
       align-items: center;
-      padding-left: 20px;
+      padding-left: 10px;
       box-sizing: border-box;
+      background-color: #3c8dbc;
+      overflow: hidden;
       transition: width 0.3s ease;
     }
     .header-right {
       display: flex;
+      height: inherit;
       align-items: center;
       flex: 1;
-      padding: 0 20px;
+      padding: 0 10px;
       box-sizing: border-box;
       justify-content: space-between;
+      background-color: #3c8dbce6;
       .header-right__collapse {
         cursor: pointer;
       }
