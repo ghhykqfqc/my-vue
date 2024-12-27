@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { Menu as IconMenu, Message, Setting, Avatar } from '@element-plus/icons-vue'
+import { Menu as IconMenu, Message, Setting, Avatar, Fold, Expand } from '@element-plus/icons-vue'
 import { ref } from 'vue';
 
 const isCollapse = ref(true);
@@ -30,7 +30,10 @@ const toggleCollapse = () => {
           <div class="header-left__title">DDP</div>
         </div>
         <div class="header-right">
-          <el-icon class="header-right__logo"><icon-menu @click="toggleCollapse" /></el-icon>
+          <el-icon class="header-right__collapse" @click="toggleCollapse">
+            <Fold v-show="!isCollapse"/>
+            <Expand v-show="isCollapse"/>
+          </el-icon>
           <div class="header-right__account toolbar">
             <el-dropdown>
               <el-icon style="margin-right: 8px; margin-top: 1px">
@@ -141,6 +144,12 @@ const toggleCollapse = () => {
       padding: 0 20px;
       box-sizing: border-box;
       justify-content: space-between;
+      .header-right__collapse {
+        cursor: pointer;
+      }
+      .header-right__collapse:hover {
+        color: #fff;
+      }
       .header-right__account {
         display: flex;
         align-items: center;
@@ -150,22 +159,17 @@ const toggleCollapse = () => {
   .common-wrapper {
     max-height: calc(100% - 60px);
     .wrapper-left{
+      transition: width 0.3s ease;
       background-color: #fff;
       .wrapper-left__menu {
         border-right: none;
       }
-      .wrapper-menu:not(.el-menu--collapse) {
-        width: 200px;
-        min-height: 400px;
-      }
       .submenu-title {
-        transition: opacity 0.3s ease, visibility 0.3s ease;
         opacity: 1;
         visibility: visible;
       }
       .el-menu--collapse {
         .submenu-title {
-          transition: opacity 0.3s ease, visibility 0.3s ease;
           opacity: 0;
           visibility: hidden;
         }
