@@ -20,7 +20,7 @@
                 <el-dropdown-menu>
                   <el-dropdown-item>账号信息</el-dropdown-item>
                   <el-dropdown-item>修改密码</el-dropdown-item>
-                  <el-dropdown-item>退出登录</el-dropdown-item>
+                  <el-dropdown-item @click="loginOut">退出登录</el-dropdown-item>
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
@@ -30,7 +30,7 @@
       </el-header>
       
       <el-container class="common-wrapper">
-        <el-aside class="wrapper-left" :width="isCollapse ? '64px' : '200px'">
+        <el-aside class="wrapper-left" :style="{ width: isCollapse ? '64px' : '200px' }">
           <el-scrollbar>
             <el-menu 
             :default-openeds="[filteredRoutes[0]?.path]"
@@ -88,6 +88,10 @@ const handleMenuSelect = (index: string) => {
 const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value;
 };
+
+const loginOut = () => {
+  router.replace({ path: '/' });
+};
 </script>
 
 <style scoped lang="scss">
@@ -101,6 +105,7 @@ const toggleCollapse = () => {
     padding: 0;
     .header-left {
       display: flex;
+      width: 200px;
       height: inherit;
       align-items: center;
       padding-left: 10px;
@@ -133,6 +138,7 @@ const toggleCollapse = () => {
   .common-wrapper {
     max-height: calc(100% - 60px);
     .wrapper-left{
+      width: 200px;
       transition: width 0.3s ease;
       background-color: #fff;
       .wrapper-left__menu {
