@@ -6,6 +6,7 @@ import { ElForm, ElMessage, FormRules } from 'element-plus';
 import type { messageType } from 'element-plus';
 import { useRouter } from 'vue-router';
 import { Lock, User } from '@element-plus/icons-vue';
+import login from "@/common/api/loginApi";
 
 const userStore = useUserStore();
 const dialogVisible = ref(false);
@@ -57,18 +58,21 @@ const onSubmit = async () => {
   if (!formRef.value) return;
   try {
     await formRef.value.validate();
-    const { username, remember } = form;
-    const response = {code: 200, data:{token:'123456'}};
-    if (response.code === 200) {
-      if (remember) {
-        localStorage.setItem('username', username);
-        localStorage.setItem('token', response.data.token);
+    const { username, password, remember } = form;
+    // 登录
+    login({username, password}).then(response => {
+      const {code, data, message} = response;
+      if (code === 200) {
+        if (remember) {
+          localStorage.setItem('username', username);
+          localStorage.setItem('token', data.token);
+        }
+        showMsg('登录成功!', 'success');
+        router.replace('/home');
+      } else {
+        showMsg(message, 'error');
       }
-      showMsg('登录成功!', 'success');
-      router.replace('/home');
-    } else {
-      showMsg('response.message', 'error');
-    }
+    })
   } catch (error) {
     console.error('登录失败', error);
   }
