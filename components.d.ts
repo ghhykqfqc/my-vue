@@ -8,7 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppLayout: typeof import('./src/components/AppLayout.vue')['default']
-    CommonIcon: typeof import('./src/components/commonIcon.vue')['default']
+    CommonIcon: typeof import('./src/components/tools/CommonIcon.vue')['default']
+    ConfirmDialog: typeof import('./src/components/tools/ConfirmDialog.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']

@@ -18,7 +18,7 @@
   
 <script setup lang="ts">
   import SidebarItem from './SideBarItem.vue';
-  import CommonIcon from '@/components/commonIcon.vue';
+  import CommonIcon from '@/components/tools/CommonIcon.vue';
   
   const props = defineProps({
     route: Object,

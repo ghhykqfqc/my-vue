@@ -13,6 +13,7 @@ Mock.mock(`${apiConfig.baseURL}/mock-api/login`, 'post', (options) => {
       code: 200,
       message: '登录成功',
       data: {
+        role: 1, // 0-普通用户; 1-管理员
         token: 'mocked_token_for_admin',
       },
     };

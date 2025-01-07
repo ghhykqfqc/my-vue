@@ -5,7 +5,7 @@
     ></i>
 </template>
   
-  <script setup>
+<script setup>
   const props = defineProps({
     name: {
       type: String,
@@ -24,4 +24,4 @@
       default: ''
     }
   });
-  </script>
+</script>

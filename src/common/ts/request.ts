@@ -2,6 +2,12 @@ import axios, {AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, Ax
 import isMockEnabled from '@/config/mockConfig';
 import apiConfig from '@/config/apiConfig';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+interface ResponseType<T = any> {
+  code: number;
+  data: T;
+  message: string;
+}
 // 定义默认的 Axios 配置
 const defaultConfig: AxiosRequestConfig = {
   baseURL: apiConfig.baseURL,
@@ -36,7 +42,7 @@ instance.interceptors.response.use(
 );
 
 // 定义 API 方法
-const api = <T, R = AxiosResponse<T>>() => ({
+const api = <T, R = ResponseType<T>>() => ({
     get: (url: string, config?: AxiosRequestConfig): Promise<R> =>
       instance.get<T, R>(url, config),
     post: (url: string, data?: T, config?: AxiosRequestConfig): Promise<R> =>
@@ -47,4 +53,5 @@ const api = <T, R = AxiosResponse<T>>() => ({
       instance.delete<T, R>(url, config),
 });
 
-export default api;
+const request = api<unknown, ResponseType>();
+export default request;

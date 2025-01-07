@@ -24,7 +24,7 @@
                 </el-dropdown-menu>
               </template>
             </el-dropdown>
-            <span>Admin</span>
+            <span>{{ username }}</span>
           </div>
         </div>
       </el-header>
@@ -58,7 +58,8 @@
           </el-main>
           <el-footer class="wrapper-right__footer">
             <!-- Footer 内容 -->
-            <div>Powered By DDP</div>
+            <div>Powered By <span class="note-text">DDP</span> 1.0.0</div>
+            <div><span class="note-text">Copyright</span> © <span class="note-text">2015-2025</span></div>
           </el-footer>
         </el-container>
       </el-container>
@@ -71,9 +72,15 @@ import { useRouter } from 'vue-router';
 import { Menu as IconMenu, Avatar, Fold, Expand } from '@element-plus/icons-vue'
 import { computed, ref } from 'vue';
 import SidebarItem from './SideBarItem.vue';
+import { showMsg } from '@/common/ts/tool';
+import { useUserStore } from "@/store/modules/user";
 
 const isCollapse = ref(false);
 const router = useRouter();
+const userStore = useUserStore();
+
+// 使用 computed 获取响应式的 username
+const username = computed(() => userStore.user.name);
 
 // 根据需要过滤路由，只显示有name、meta信息且useLayout为true（使用layout布局）的路由
 const filteredRoutes = computed(() => {
@@ -85,11 +92,17 @@ const handleMenuSelect = (index: string) => {
   router.push(index);
 };
 
+// 切换侧边栏的展开和收缩
 const toggleCollapse = () => {
   isCollapse.value = !isCollapse.value;
 };
 
+// 退出登录
 const loginOut = () => {
+  if (localStorage.getItem('token')) {
+    localStorage.removeItem('token');
+  }
+  showMsg('退出成功!', 'success');
   router.replace({ path: '/' });
 };
 </script>
@@ -103,6 +116,7 @@ const loginOut = () => {
     align-items: center;
     font-size: 16px;
     padding: 0;
+    color: #fff;
     .header-left {
       display: flex;
       width: 200px;
@@ -161,9 +175,15 @@ const loginOut = () => {
         overflow: auto;
       }
       .wrapper-right__footer {
-        text-align: center;
-        padding: 10px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        color: #888;
         background-color: #f4f4f4;
+        .note-text {
+          color: #333;
+        }
       }
     }
   }
