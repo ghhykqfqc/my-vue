@@ -102,6 +102,12 @@ const loginOut = () => {
   if (localStorage.getItem('token')) {
     localStorage.removeItem('token');
   }
+  if (localStorage.getItem('userInfo')) {
+    localStorage.removeItem('userInfo');
+  }
+  if (localStorage.getItem('remember')) {
+    localStorage.removeItem('remember');
+  }
   showMsg('退出成功!', 'success');
   router.replace({ path: '/' });
 };

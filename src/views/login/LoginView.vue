@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user";
 import { UserType } from "@/store/types/user";
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import { ElForm, FormRules } from 'element-plus';
 import { useRouter } from 'vue-router';
 import { Lock, User } from '@element-plus/icons-vue';
@@ -15,11 +15,6 @@ interface LoginForm {
 }
 
 const userStore = useUserStore();
- 
-//改变用户信息
-const changeUserInfo = (userInfo: UserType) => {
-  userStore.changeUserInfo(userInfo);
-}
 
 const form = reactive<LoginForm>({
   username: '',
@@ -35,6 +30,33 @@ const rules = reactive<FormRules<LoginForm>>({
 
 const router = useRouter();
 
+// 自动登录函数
+const autoLogin = async () => {
+  const token = localStorage.getItem('token');
+  const userInfo = localStorage.getItem('userInfo');
+  if (token && userInfo) { // 假设 token 和 userInfo存在即有效，可根据需求调用接口验证 token
+    const userInfoObj = JSON.parse(userInfo);
+    form.username = userInfoObj.name;
+    form.remember = true;
+    form.password = '123456'; // 默认自动登录密码为 123456 其实仅显示所用
+    userStore.changeUserInfo(userInfoObj); // 更新 Pinia 中的用户信息
+    showMsg('自动登录成功!', 'success');
+    setTimeout(() => {
+      router.replace('/home');
+    }, 1000);
+  } else {
+    showMsg('自动登录失败，请手动登录!', 'error');
+  }
+};
+
+// 组件挂载时检查 token
+onMounted(() => {
+  const remember = localStorage.getItem('remember');
+  if (remember === 'true') {
+    autoLogin();
+  }
+});
+
 const onSubmit = async () => {
   if (!formRef.value) return;
   try {
@@ -43,14 +65,16 @@ const onSubmit = async () => {
     login({username, password}).then(response => { // 登录
       const {code, data, message} = response;
       if (code === 200) {
-        if (remember) {
-          localStorage.setItem('token', data.token);
-        }
-        let userInfo: UserType = {
+        const userInfo: UserType = {
           name: username,
           role: data.role,
         };
-        changeUserInfo(userInfo); // 写入pinia 管理用户信息
+        if (remember) {
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('userInfo', JSON.stringify(userInfo));
+          localStorage.setItem('remember', 'true');
+        }
+        userStore.changeUserInfo(userInfo); // 写入pinia 管理用户信息
         showMsg('登录成功!', 'success');
         router.replace('/home');
       } else {
