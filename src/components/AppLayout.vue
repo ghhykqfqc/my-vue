@@ -3,8 +3,8 @@
     <el-container class="common-container">
       <el-header class="common-header">
         <div class="header-left" :style="{ width: isCollapse ? '64px' : '200px' }">
-          <el-icon class="header-left__logo"><icon-menu /></el-icon>
-          <div class="header-left__title">DDP</div>
+          <el-icon class="header-left__logo"><CommonIcon :name="'sclogo'" :size="'36px'" color="inherit"/></el-icon>
+          <div v-if="!isCollapse" :class="['header-left__title', { show: !isCollapse }]">数字化研发平台</div>
         </div>
         <div class="header-right">
           <el-icon class="header-right__collapse" @click="toggleCollapse">
@@ -34,7 +34,7 @@
           <el-scrollbar>
             <el-menu 
             :default-openeds="[filteredRoutes[0]?.path]"
-            :default-active="'/home'"
+            :default-active="activeMenu"
             :collapse="isCollapse"
             :collapse-transition="true"
             :unique-opened="true"
@@ -69,8 +69,9 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-import { Menu as IconMenu, Avatar, Fold, Expand } from '@element-plus/icons-vue'
-import { computed, ref } from 'vue';
+import { Avatar, Fold, Expand } from '@element-plus/icons-vue'
+import CommonIcon from '@/components/tools/CommonIcon.vue';
+import { computed, ref, watch } from 'vue';
 import SidebarItem from './SideBarItem.vue';
 import { showMsg } from '@/common/ts/tool';
 import { useUserStore } from "@/store/modules/user";
@@ -81,6 +82,16 @@ const userStore = useUserStore();
 
 // 使用 computed 获取响应式的 username
 const username = computed(() => userStore.user.name);
+const activeMenu = ref('/home');
+
+// 监听实现根据路由路径动态设置activeMenu的值
+watch(() => router.currentRoute.value.fullPath, (newPath) => {
+  if (newPath === '/') {
+    activeMenu.value = '/home';
+  } else if (newPath) {
+    activeMenu.value = newPath;
+  }
+});
 
 // 根据需要过滤路由，只显示有name、meta信息且useLayout为true（使用layout布局）的路由
 const filteredRoutes = computed(() => {
@@ -133,6 +144,25 @@ const loginOut = () => {
       background-color: #3c8dbc;
       overflow: hidden;
       transition: width 0.3s ease;
+      .header-left__logo {
+        width: 36px;
+        height: 36px;
+      }
+      .header-left__title {
+        opacity: 0;
+        margin-left: 8px;
+        font-size: 20px;
+        visibility: hidden; /* 初始状态为隐藏 */
+        white-space: nowrap; /* 防止内容换行 */
+        transition:
+          opacity 0.3s ease-in-out,
+          visibility 0.3s ease-in-out;
+        transition-delay: 0.4s; /* 延迟 0.2 秒显示 */
+      }
+      .header-left__title.show {
+        opacity: 1; /* 显示时完全不透明 */
+        visibility: visible; /* 显示时可见 */
+      }
     }
     .header-right {
       display: flex;
@@ -143,11 +173,15 @@ const loginOut = () => {
       box-sizing: border-box;
       justify-content: space-between;
       background-color: #3c8dbce6;
-      .header-right__collapse {
+      .el-icon {
+        color: #fff;
         cursor: pointer;
       }
-      .header-right__collapse:hover {
-        color: #fff;
+      .el-icon:hover {
+        color: rgb(197.7, 225.9, 255);
+      }
+      .header-right__collapse {
+        cursor: pointer;
       }
       .header-right__account {
         display: flex;
@@ -184,6 +218,7 @@ const loginOut = () => {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 50px;
         padding: 10px;
         color: #888;
         background-color: #f4f4f4;

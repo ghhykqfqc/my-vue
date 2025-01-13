@@ -1,8 +1,13 @@
 <script setup lang="ts">
+import CommonTable from '@/components/CommonTable.vue';
+import SearchForm from '@/components/SearchForm.vue';
+
 </script>
 
 <template>
-  <div>批次预设</div>
+  <PageHeader :title="'批次预设'" class="title-margin"/>
+  <SearchForm />
+  <CommonTable />
 </template>
 
 <style scoped>

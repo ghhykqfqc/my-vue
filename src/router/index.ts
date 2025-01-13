@@ -16,7 +16,7 @@ const routes: RouteRecordRaw[] = [
     name: 'control',
     meta: {
       title: '调度框架',
-      iconName: 'settings',
+      iconName: 'batchControl',
       useLayout: true
     },
     children: [
@@ -51,7 +51,7 @@ const routes: RouteRecordRaw[] = [
     name: 'ruleEngine',
     meta: {
       title: '规则引擎',
-      iconName: 'settings',
+      iconName: 'ruleEngine',
       useLayout: true
     },
     children: [

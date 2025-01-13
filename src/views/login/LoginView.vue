@@ -1,3 +1,51 @@
+<template>
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-container-left">
+        <img src="@/assets/login.png" alt="login" />
+      </div>
+      <div class="login-container-right">
+        <div class="login-container__title">数字化研发平台</div>
+        <el-form
+          name="normal_login"
+          class="login-form"
+          :model="form"
+          :rules="rules"
+          ref="formRef"
+          label-width="0"
+        >
+          <el-form-item prop="username" class="login-form-username">
+            <el-input
+              v-model="form.username"
+              maxlength="11"
+              placeholder="请输入用户名"
+              :prefix-icon="User"
+            />
+          </el-form-item>
+          <el-form-item prop="password" class="login-form-password">
+            <el-input
+              v-model="form.password"
+              type="password"
+              maxlength="11"
+              placeholder="请输入密码"
+              :prefix-icon="Lock"
+            />
+          </el-form-item>
+          <el-form-item class="login-form-checkbox">
+            <el-checkbox v-model="form.remember">记住密码</el-checkbox>
+          </el-form-item>
+          <el-form-item class="login-form-button">
+            <el-button type="primary" native-type="submit" class="btn-login" @click.prevent="onSubmit">
+              登录
+            </el-button>
+            <el-button class="btn-register">立即注册!</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+    </div>
+  </div>
+</template>
+
 <script setup lang="ts">
 import { useUserStore } from "@/store/modules/user";
 import { UserType } from "@/store/types/user";
@@ -85,51 +133,7 @@ const onSubmit = async () => {
     console.error('登录失败', error);
   }
 };
-
 </script>
-
-<template>
-  <div class="login-page">
-    <div class="login-container">
-      <div class="login-container__title">数字化研发平台</div>
-      <el-form
-        name="normal_login"
-        class="login-form"
-        :model="form"
-        :rules="rules"
-        ref="formRef"
-        label-width="0"
-      >
-        <el-form-item prop="username" class="login-form-username">
-          <el-input
-            v-model="form.username"
-            maxlength="11"
-            placeholder="请输入用户名"
-            :prefix-icon="User"
-          />
-        </el-form-item>
-        <el-form-item prop="password" class="login-form-password">
-          <el-input
-            v-model="form.password"
-            type="password"
-            maxlength="11"
-            placeholder="请输入密码"
-            :prefix-icon="Lock"
-          />
-        </el-form-item>
-        <el-form-item class="login-form-checkbox">
-          <el-checkbox v-model="form.remember">记住密码</el-checkbox>
-        </el-form-item>
-        <el-form-item class="login-form-button">
-          <el-button type="primary" native-type="submit" class="btn-login" @click.prevent="onSubmit">
-            登录
-          </el-button>
-          <el-button class="btn-register">立即注册!</el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </div>
-</template>
 
 <style lang="scss">
 .login-page{
@@ -137,35 +141,80 @@ const onSubmit = async () => {
   justify-content: center;
   align-items: center;
   height: 100%;
+  background-color: aliceblue;
   .login-container {
-      max-width: 300px;
-      .login-container__title {
-          text-align: center;
-          font-size: 24px;
-          font-weight: bold;
-          margin-bottom: 20px;
-      }
-      .login-form {
-          .el-form-item__error {
-            color: #f56c6c;
-            font-size: 12px;
-            line-height: 1;
-          }
-          .btn-login {
-              width: 100%;
-          }
-          .login-form-username, .login-form-password {
-            .el-form-item__content {
-              height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ebeef5;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    padding: 50px;
+    .login-container-left {
+        width: 375px;
+        img {
+            width: 100%;
+        }
+    }
+    .login-container-right {
+        min-width: 275px;
+        max-width: 300px;
+        .login-container__title {
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .login-form {
+            .el-input__wrapper {
+              font-size: 16px;
             }
-          }
-          .btn-register {
-            border: none;
-            background: none;
-            margin: 0;
-            padding: 10px 0;
-          }
-      }
+            .login-form-checkbox {
+              .el-checkbox {
+                color: #333;
+              }
+              .el-checkbox:hover {
+                color: $border-color-hover;
+                .el-checkbox__inner {
+                  border-color: $border-color-hover;
+                }
+              }
+              .el-checkbox__label {
+                font-size: 16px;
+              }
+              .el-checkbox__inner {
+                border-color: #333;
+              }
+              .el-checkbox__input.is-checked .el-checkbox__inner {
+                border-color: $border-color-hover;
+              }
+            }
+            .el-form-item__error {
+              color: #f56c6c;
+              font-size: 14px;
+            }
+            .btn-login {
+                width: 100%;
+            }
+            .login-form-username, .login-form-password {
+              .el-form-item__content {
+                height: 60px;
+              }
+            }
+            .btn-register {
+              border: none;
+              background: none;
+              margin: 0;
+              padding: 10px 0;
+              color: #333;
+              font-size: 16px;
+            }
+            .btn-register:hover {
+              color: $border-color-hover;
+            }
+        }
+    }
   }
 }
 </style>

@@ -1,6 +1,40 @@
-// src/styles/variables.scss
+// color
 $primary-color: #3498db;
 $secondary-color: #2ecc71;
+$icon-color: #3498db;
+$icon-color-hover: #409eff;
+$border-active: #409eff;
+$title-color: #222;
+$border-color: #333;
+$border-color-hover: #409eff;
+
+// font
 $font-stack: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-size__content--title: 16px;
+
+
+// common style
+.page-title {
+    color: $title-color;
+    font-size: 18px;
+    font-weight: 700;
+}
+.title-margin {
+    margin-bottom: 10px;
+}
+.content-title {
+    color: $title-color;
+    font-size: $font-size__content--title;
+    font-weight: 700;
+}
+.content-title-bar {
+    background-color: $icon-color;
+    width: 6px;
+    margin: 4px 4px 4px 0;
+}
+
+.text-center {
+    text-align: center;
+}
 
 // 其他变量、混入和函数
