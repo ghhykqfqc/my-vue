@@ -3,6 +3,7 @@
     icon="error"
     title="404"
     sub-title="Sorry, the page you visited does not exist."
+    class="nfpage-container"
     >
         <template #extra>
             <el-button type="primary" href="/" @click="gotoLogin">Back To Login</el-button>
@@ -17,3 +18,12 @@ const gotoLogin = () => {
     router.replace({ path: '/' });
 };
 </script>
+
+<style scoped>
+.nfpage-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+</style>

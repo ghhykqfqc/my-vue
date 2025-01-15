@@ -5,7 +5,7 @@
         <img src="@/assets/login.png" alt="login" />
       </div>
       <div class="login-container-right">
-        <div class="login-container__title">数字化研发平台</div>
+        <div class="login-container__title">{{ title }}</div>
         <el-form
           name="normal_login"
           class="login-form"
@@ -77,6 +77,8 @@ const rules = reactive<FormRules<LoginForm>>({
 });
 
 const router = useRouter();
+// 获取环境变量定义的标题
+const title = import.meta.env.VITE_APP_TITLE;
 
 // 自动登录函数
 const autoLogin = async () => {

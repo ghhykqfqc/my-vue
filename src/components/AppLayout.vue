@@ -4,14 +4,14 @@
       <el-header class="common-header">
         <div class="header-left" :style="{ width: isCollapse ? '64px' : '200px' }">
           <el-tooltip
-            content="数字化研发平台"
+            :content="title"
             placement="bottom"
             effect="light"
             popper-class="custom-tooltip"
           >
-            <el-icon class="header-left__logo" title="数字化研发平台"><CommonIcon :name="'sclogo'" :size="'36px'" color="inherit"/></el-icon>
+            <el-icon class="header-left__logo"><CommonIcon :name="'sclogo'" :size="'36px'" color="inherit"/></el-icon>
           </el-tooltip>
-          <div v-if="!isCollapse" :class="['header-left__title', { show: !isCollapse }]">数字化研发平台</div>
+          <div v-if="!isCollapse" :class="['header-left__title', { show: !isCollapse }]">{{ title }}</div>
         </div>
         <div class="header-right">
           <el-icon class="header-right__collapse" @click="toggleCollapse">
@@ -87,6 +87,9 @@ const isCollapse = ref(false);
 const router = useRouter();
 const userStore = useUserStore();
 
+// 获取环境变量定义的标题
+const title = import.meta.env.VITE_APP_TITLE;
+
 // 使用 computed 获取响应式的 username
 const username = computed(() => userStore.user.name);
 const activeMenu = ref('/home');
@@ -149,7 +152,7 @@ const loginOut = () => {
       width: 200px;
       height: inherit;
       align-items: center;
-      padding-left: 10px;
+      justify-content: center;
       box-sizing: border-box;
       // background-color: #3c8dbc;
       overflow: hidden;
