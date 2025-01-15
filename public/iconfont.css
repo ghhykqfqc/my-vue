@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 4581036 */
-  src: url('//at.alicdn.com/t/c/font_4581036_a5wj3kmkwju.woff2?t=1736760461525') format('woff2'),
-       url('//at.alicdn.com/t/c/font_4581036_a5wj3kmkwju.woff?t=1736760461525') format('woff'),
-       url('//at.alicdn.com/t/c/font_4581036_a5wj3kmkwju.ttf?t=1736760461525') format('truetype');
+  src: url('//at.alicdn.com/t/c/font_4581036_klloq5pcdb.woff2?t=1736825630692') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4581036_klloq5pcdb.woff?t=1736825630692') format('woff'),
+       url('//at.alicdn.com/t/c/font_4581036_klloq5pcdb.ttf?t=1736825630692') format('truetype');
 }
 
 .iconfont {
@@ -13,16 +13,32 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-log:before {
+  content: "\e9fc";
+}
+
+.icon-flowAttr:before {
+  content: "\e6c4";
+}
+
+.icon-taskStatus:before {
+  content: "\e603";
+}
+
+.icon-batchStatus:before {
+  content: "\e9fb";
+}
+
+.icon-batchControl:before {
+  content: "\e65b";
+}
+
 .icon-sclogo:before {
   content: "\e600";
 }
 
 .icon-ruleEngine:before {
   content: "\e89d";
-}
-
-.icon-batchControl:before {
-  content: "\e667";
 }
 
 .icon-logout:before {

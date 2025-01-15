@@ -1,6 +1,6 @@
 <template>
-    <el-page-header @back="handleBack">
-      <template #breadcrumb v-if="tags.length > 0">
+    <el-page-header v-if="tags.length > 0" :icon="ArrowLeft" @back="handleBack">
+      <template #content>
         <div class="flex gap-2">
             <el-tag
             v-for="(tag, index) in tags"
@@ -16,16 +16,16 @@
             </el-tag>
         </div>
       </template>
-      <template #content>
-        <span class="page-title"> {{ props.title }} </span>
-      </template>
-    </el-page-header>
+    <div class="page-title"> {{ props.title }} </div>
+  </el-page-header>
+  <div v-else class="page-title"> {{ props.title }} </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useTagsStore } from '@/store/modules/tags';
+import { ArrowLeft } from '@element-plus/icons-vue';
 
 // 获取当前路由信息
 const route = useRoute()
@@ -44,18 +44,15 @@ const clickTag = (path: string) => {
 
 // 处理标签关闭事件
 const handleClose = (path: string, event: MouseEvent) => {
-  // 阻止事件冒泡
-  event.stopPropagation();
+  event.stopPropagation(); // 阻止事件冒泡
   const index = tags.value.findIndex(tag => tag.path === path)
   tags.value.splice(index, 1)
   store.removeTag(path)
-  // 如果关闭的是最后一个标签，跳转到新的最后一个标签
-  if (tags.value.length > 0) {
-      const lastTagPath = tags.value[tags.value.length - 1].path;
-      router.push(lastTagPath);
-  } else {
-      // 如果标签列表为空，可以跳转到首页或其他默认页面
-      router.push('/home');
+  if (tags.value.length > 0) { // 如果关闭的是最后一个标签，跳转到新的最后一个标签
+    const lastTagPath = tags.value[tags.value.length - 1].path;
+    router.push(lastTagPath);
+  } else { // 如果标签列表为空，可以跳转到首页或其他默认页面
+    router.replace('/home');
   }
 }
 
@@ -74,14 +71,10 @@ watch(route, () => {
     const name = (route.meta.title as string) || '';
 
     if (name && path) {
-        // 检查标签是否已存在
-        const exists = tags.value.some(tag => tag.path === path)
-
-        if (!exists) {
-            // 如果不存在，则添加到标签列表，并设置为 'primary' 类型
+        const exists = tags.value.some(tag => tag.path === path); // 检查标签是否已存在
+        if (!exists) { // 如果不存在，则添加到标签列表，并设置为 'primary' 类型
             store.addTag({ name: name, path: path, type: 'primary' })
-            } else {
-            // 如果已存在，确保它在 'primary' 标签的最后
+            } else { // 如果已存在，确保它在 'primary' 标签的最后
             store.removeTag(path)
             store.addTag({ name: name, path: path, type: 'primary' })
         }
@@ -99,12 +92,19 @@ const props = defineProps({
 </script>
 
 <style lang="scss">
+.el-page-header__main {
+  margin-top: 10px;
+  padding-top: 10px;
+}
 .tag-item {
   margin-right: 10px;
   cursor: pointer;
 }
 .tag-item:nth-last-child(1) {
   margin-right: 0;
+}
+.tag-item:not(:last-child) {
+  background-color: #fff;
 }
 .tag-item:hover {
   background-color: rgb(197.7, 225.9, 255);

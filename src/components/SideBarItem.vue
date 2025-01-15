@@ -25,3 +25,11 @@
     basePath: String
   });
 </script>
+
+<style scoped>
+  .el-menu-item {
+    .el-icon {
+      line-height: inherit;
+    }
+  }
+</style>

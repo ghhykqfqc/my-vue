@@ -12,16 +12,16 @@ import PageHeader from '@/components/PageHeader.vue';
   <el-row class="content-title row-gap"><span class="content-title-bar"></span>快速访问</el-row>
   <el-row>
     <el-col :span="6">
-      <CardBox :title="'任务状态'" :content="'任务状态表格总览'" />
+      <CardBox :title="'任务状态'" :content="'任务状态表格总览'" :iconName="'taskStatus'"/>
     </el-col>
     <el-col :span="6">
-      <CardBox :title="'批次状态'" :content="'任务状态表格总览'" />
+      <CardBox :title="'批次状态'" :content="'批次状态表格总览'" :iconName="'batchStatus'"/>
     </el-col>
     <el-col :span="6">
-      <CardBox :title="'流程属性'" :content="'流程属性表格总览'" />
+      <CardBox :title="'流程属性'" :content="'流程属性表格总览'" :iconName="'flowAttr'"/>
     </el-col>
     <el-col :span="6">
-      <CardBox :title="'调度日志'" :content="'任务状态表格总览'" />
+      <CardBox :title="'调度日志'" :content="'调度日志表格总览'" :iconName="'log'"/>
     </el-col>
   </el-row>
 </template>

@@ -1,26 +1,43 @@
 <template>
   <el-row>
     <el-col :span="6">
-      <el-statistic title="任务数量" :value="268500" />
+      <el-statistic :value="outputValueArray[0]">
+        <template #title>
+          <div style="display: inline-flex; align-items: center">
+            任务数量
+            <el-icon style="margin-left: 4px" :size="12">
+              <Top />
+            </el-icon>
+          </div>
+        </template>
+      </el-statistic>
     </el-col>
     <el-col :span="6">
-      <el-statistic :value="138">
+      <el-statistic :value="outputValueArray[1]">
         <template #title>
           <div style="display: inline-flex; align-items: center">
             调度次数
             <el-icon style="margin-left: 4px" :size="12">
-              <Male />
+              <Top />
             </el-icon>
           </div>
         </template>
-        <template #suffix>/100</template>
       </el-statistic>
     </el-col>
     <el-col :span="6">
-      <el-statistic title="执行器数量" :value="outputValue" />
+      <el-statistic :value="outputValueArray[2]">
+        <template #title>
+          <div style="display: inline-flex; align-items: center">
+            执行器数量
+            <el-icon style="margin-left: 4px" :size="12">
+              <Bottom />
+            </el-icon>
+          </div>
+        </template>
+      </el-statistic>
     </el-col>
     <el-col :span="6">
-      <el-statistic title="Feedback number" :value="562">
+      <el-statistic title="调度日志数量" :value="outputValueArray[3]">
         <template #suffix>
           <el-icon style="vertical-align: -0.125em">
             <ChatLineRound />
@@ -34,17 +51,24 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useTransition } from '@vueuse/core'
-import { ChatLineRound, Male } from '@element-plus/icons-vue'
+import { ChatLineRound, Bottom, Top } from '@element-plus/icons-vue'
 
-const source = ref(0)
-const outputValue = useTransition(source, {
-  duration: 1500,
-})
-source.value = 172000
+const initNumArray = ref([0, 0, 0, 0]);
+const outputValueArray = useTransition(initNumArray, {
+  duration: 1000,
+});
+initNumArray.value = [268500, 138, 172000, 562];
 </script>
 
-<style scoped>
+<style lang="scss">
 .el-col {
   text-align: center;
+}
+.el-statistic__head {
+  font-size: 14px;
+  color: #303133;
+  .el-icon {
+    color: #409eff;
+  }
 }
 </style>

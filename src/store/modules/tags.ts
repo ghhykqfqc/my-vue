@@ -6,10 +6,13 @@ export const useTagsStore = defineStore("tags", () => {
     const tags = ref<TagType[]>([]);
 
     const addTag = (tag: TagType) => {
+        if (tags.value.length === 0 && tag.path === "/home") { // 仅首页不添加到tags
+            return;
+        }
         const exists = tags.value.some((t) => t.path === tag.path);
-        if (!exists) {
+        if (!exists) { // 不存在
             tags.value.push(tag);
-        } else {
+        } else { // 已存在
             const index = tags.value.findIndex((t) => t.path === tag.path);
             if (index !== -1) {
                 tags.value.splice(index, 1);

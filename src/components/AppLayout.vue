@@ -3,7 +3,14 @@
     <el-container class="common-container">
       <el-header class="common-header">
         <div class="header-left" :style="{ width: isCollapse ? '64px' : '200px' }">
-          <el-icon class="header-left__logo"><CommonIcon :name="'sclogo'" :size="'36px'" color="inherit"/></el-icon>
+          <el-tooltip
+            content="数字化研发平台"
+            placement="bottom"
+            effect="light"
+            popper-class="custom-tooltip"
+          >
+            <el-icon class="header-left__logo" title="数字化研发平台"><CommonIcon :name="'sclogo'" :size="'36px'" color="inherit"/></el-icon>
+          </el-tooltip>
           <div v-if="!isCollapse" :class="['header-left__title', { show: !isCollapse }]">数字化研发平台</div>
         </div>
         <div class="header-right">
@@ -133,7 +140,10 @@ const loginOut = () => {
     align-items: center;
     font-size: 16px;
     padding: 0;
-    color: #fff;
+    // color: #fff;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+    z-index: 1000;
     .header-left {
       display: flex;
       width: 200px;
@@ -141,12 +151,14 @@ const loginOut = () => {
       align-items: center;
       padding-left: 10px;
       box-sizing: border-box;
-      background-color: #3c8dbc;
+      // background-color: #3c8dbc;
       overflow: hidden;
       transition: width 0.3s ease;
       .header-left__logo {
         width: 36px;
         height: 36px;
+        color: #409eff;
+        cursor: pointer;
       }
       .header-left__title {
         opacity: 0;
@@ -154,9 +166,7 @@ const loginOut = () => {
         font-size: 20px;
         visibility: hidden; /* 初始状态为隐藏 */
         white-space: nowrap; /* 防止内容换行 */
-        transition:
-          opacity 0.3s ease-in-out,
-          visibility 0.3s ease-in-out;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
         transition-delay: 0.4s; /* 延迟 0.2 秒显示 */
       }
       .header-left__title.show {
@@ -172,13 +182,14 @@ const loginOut = () => {
       padding: 0 10px;
       box-sizing: border-box;
       justify-content: space-between;
-      background-color: #3c8dbce6;
+      border-left: 1px solid rgba(0, 0, 0, 0.06);
+      // background-color: #3c8dbce6;
       .el-icon {
-        color: #fff;
+        color: #409eff;
         cursor: pointer;
       }
       .el-icon:hover {
-        color: rgb(197.7, 225.9, 255);
+        color: #a0cfff;
       }
       .header-right__collapse {
         cursor: pointer;
@@ -186,6 +197,9 @@ const loginOut = () => {
       .header-right__account {
         display: flex;
         align-items: center;
+        .el-icon:focus-visible {
+          outline: none;
+        }
       }
     }
   }

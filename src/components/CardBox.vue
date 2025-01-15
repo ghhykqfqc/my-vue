@@ -1,6 +1,6 @@
 <template>
     <el-card class="card-box" shadow="hover">
-      <div class="card-left"><icon-menu /></div>
+      <div class="card-left"><CommonIcon :name="props.iconName" :size="'50px'" color="inherit"/></div>
       <div class="card-right">
         <div class="card-right__title">{{props.title}}</div>
         <div class="card-right__content">{{props.content}}</div>
@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Menu as IconMenu } from '@element-plus/icons-vue'
+import CommonIcon from '@/components/tools/CommonIcon.vue';
 
 const props = defineProps({
     title: {
@@ -19,6 +19,10 @@ const props = defineProps({
     content: {
       type: String,
       default: ''
+    },
+    iconName: {
+      type: String,
+      default: 'settings'
     }
   });
 </script>
@@ -30,10 +34,20 @@ const props = defineProps({
   .el-card__body {
     display: flex;
     padding: 20px 10px;
+    justify-content: center;
     .card-left {
-      width: 50px;
-      height: 50px;
+      line-height: 50px;
       color: $icon-color;
+      margin-right: 5px;
+    }
+    .card-right {
+      text-align: left;
+      .card-right__title {
+        max-width: 75px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 }
